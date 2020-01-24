@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Resource;
 use Spatie\Permission\PermissionRegistrar;
+use Laravel\Nova\Fields\BelongsToMany;
 
 class Role extends Resource
 {
@@ -21,7 +22,7 @@ class Role extends Resource
      *
      * @var string
      */
-    public static $model = \Spatie\Permission\Models\Role::class;
+    public static $model = \App\Models\Role::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -109,6 +110,8 @@ class Role extends Resource
             MorphToMany::make($userResource::label(), 'users', $userResource)
                 ->searchable()
                 ->singularLabel($userResource::singularLabel()),
+
+            BelongsToMany::make(__('Languages'), 'languages', \App\Nova\Languages::class),
         ];
     }
 
